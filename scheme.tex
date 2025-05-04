@@ -1,0 +1,1172 @@
+\documentclass[aspectratio=169]{beamer}
+
+\usepackage[nofonts]{ctex}
+\usepackage{xeCJK}
+\usepackage{graphicx}
+\usepackage{fontawesome5}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{bookmark}
+\usepackage{hyperref}
+\usepackage{microtype}
+\usepackage{fontspec}
+\usepackage{setspace}
+\usepackage{etoolbox}
+\usepackage{mathptmx}
+\usepackage{bm}
+\usepackage{booktabs}
+\usepackage[
+    backend=bibtex,
+    style=gb7714-2015,      % 使用 GB/T 7714-2015 样式
+    gbbiblabel=bracket,     % 文献编号用方括号
+    sorting=none,     
+]{biblatex}
+% \addbibresource{references.bib}
+\usetikzlibrary{intersections}
+\usetikzlibrary{positioning, shapes.geometric}
+\usetikzlibrary{calc}
+\usetikzlibrary{shadows}
+
+
+
+% 主题设置
+\usecolortheme{default} 
+\definecolor{zjublue}{RGB}{0,63,136}
+\definecolor{zjured}{RGB}{176,31,36}
+\definecolor{text}{RGB}{231,76,60}
+
+% 字体设置
+\setCJKfamilyfont{BTS}{HGBTS_CNKI}[
+    Path = ./fonts/,
+    Extension = .ttf
+]
+\setCJKfamilyfont{XBS}{HGXBS_CNKI}[
+    Path = ./fonts/,
+    Extension = .ttf
+]
+\setCJKmainfont{simsun}[
+    Path = ./fonts/,
+    Extension = .ttc,
+    BoldFont = simsun,
+    AutoFakeBold = 2
+]
+\setCJKfamilyfont{kai}{simkai}[
+    Path = ./fonts/,
+    Extension = .ttf,
+    BoldFont = simkai,
+    AutoFakeBold = 2
+]
+\setmainfont{Times New Roman}[
+    BoldFont = {Times New Roman Bold}
+]
+\makeatletter
+\def\tagform@#1{\maketag@@@{{\rmfamily\fontsize{6pt}{6pt}\selectfont(}\rmfamily\fontsize{6pt}{6pt}\selectfont#1{\rmfamily\fontsize{6pt}{6pt}\selectfont)}}}
+\makeatother
+
+
+\begin{document}
+
+
+% 封面
+\begin{frame}[plain]
+    
+    % 封面底色形状
+    \begin{tikzpicture}[remember picture,overlay]
+        
+        \pgfmathsetlengthmacro{\rectheight}{\paperheight * 7 / 10}
+        
+        \fill[zjured] 
+            (current page.north west) -- 
+            (current page.north east) --
+            ($(current page.north east)-(0,\rectheight)$) --
+            ($(current page.north west)-(0,\rectheight)$) -- cycle;
+        
+        \fill[zjublue] 
+            (current page.north west) -- 
+            ($(current page.north east)-(0,\rectheight)$) --
+            ($(current page.north east)-(0,\rectheight)$) --
+            (current page.north east) -- cycle;
+
+        \node[anchor=north west, inner sep=0] at 
+            ($(current page.north west)+(0.5cm,-0.3cm)$) 
+            {\includegraphics[height=1.2cm]{images/logo.png}};
+       
+        \begin{scope}[shift={($(current page.south west)+(0.5cm,1.75cm)$)}, scale=0.8, yscale=-1]
+            \path[fill=none, draw=none, name path=leftL]
+            (0,0) -- ++(0,1.5cm) -- ++(1.5cm,0) -- ++(0,-0.5cm) -- ++(-1cm,0) -- ++(0,-1cm) -- cycle;
+            \path[left color=zjublue, right color=zjured, shading angle=-135, opacity=0.9]
+            (0,0) -- ++(0,1.5cm) -- ++(1.5cm,0) -- ++(0,-0.5cm) -- ++(-1cm,0) -- ++(0,-1cm) -- cycle;
+        \end{scope}
+
+        \begin{scope}[shift={($(current page.south east)+(-0.5cm,1.75cm)$)}, scale=0.8]
+            \path[fill=none, draw=none, name path=rightL]
+                (0,0) -- ++(0,-1.5cm) -- ++(-1.5cm,0) -- ++(0,0.5cm) -- ++(1cm,0) -- ++(0,1cm) -- cycle;
+            \path[left color=zjured, right color=zjublue, shading angle=135, opacity=0.9]
+                (0,0) -- ++(0,-1.5cm) -- ++(-1.5cm,0) -- ++(0,0.5cm) -- ++(1cm,0) -- ++(0,1cm) -- cycle;
+        \end{scope}
+
+
+    \end{tikzpicture}
+
+    % 封面文本
+    \begin{tikzpicture}[remember picture, overlay]
+       
+        % 活动名称
+        \node (activity_shadow) at ([xshift=1pt,yshift=-1pt,yshift=2.3cm]current page.center) {\rmfamily\CJKfamily{simsun} \color{black!90}
+        活动名称：请输入文本
+        };
+        \node (activity) at ([yshift=2.3cm]current page.center) {\rmfamily\CJKfamily{simsun} \color{white} 
+        活动名称：请输入文本
+        };
+        \draw[white, thin] (activity.west) -- (current page.west |- activity.west);
+        \draw[white, thin] (activity.east) -- (current page.east |- activity.east);
+
+        % 标题
+        \node at ([xshift=2pt,yshift=-2pt,yshift=0.6cm]current page.center) {\rmfamily\CJKfamily{BTS} \color{black!90} \fontsize{40pt}{5pt}\selectfont
+        标题：请输入文本
+        };
+        \node at ([yshift=0.6cm]current page.center) {\rmfamily\CJKfamily{BTS} \color{white} \fontsize{40pt}{5pt}\selectfont
+        标题：请输入文本
+        };
+        \node at ([yshift=-0.6cm]current page.center) {\rmfamily \color{white} \large 
+        Subtitle: Please enter the text.
+        };
+
+        % 指导教师
+        \node at ([yshift=-2.3cm]current page.center) {\rmfamily\CJKfamily{kai} \fontsize{10pt}{5pt}\selectfont
+        指导教师：请输入文本
+        };
+        % 所属单位
+        \node at ([yshift=-2.8cm]current page.center) {\rmfamily\CJKfamily{kai} \fontsize{10pt}{5pt}\selectfont
+        所属单位：请输入文本
+        };
+        % 姓名
+        \node at ([yshift=-3.3cm]current page.center) {\rmfamily\CJKfamily{kai} \fontsize{10pt}{5pt}\selectfont
+        姓名：请输入文本
+        };
+        % 日期
+        \node at ([yshift=-3.8cm]current page.center) {\rmfamily\CJKfamily{kai} \fontsize{10pt}{5pt}\selectfont
+        日期：\today
+        };
+    
+    \end{tikzpicture}
+
+\end{frame}
+
+
+% 目录
+\begin{frame}
+    
+    \begin{tikzpicture}[remember picture, overlay]
+
+        % 渐变矩形背景
+        \path[rounded corners=0pt, left color=zjublue, right color=zjured, shading angle=-45, opacity=1]
+        ([xshift=-1.3cm,yshift=-2cm]current page.north) rectangle ([xshift=1.3cm,yshift=-1.0cm]current page.north);
+
+        % 目录文本
+        \node at ([xshift=1pt,yshift=-1.5cm,yshift=-1pt]current page.north) {\rmfamily\CJKfamily{BTS} \fontsize{18pt}{5pt}\selectfont \color{black}
+        \kern0.2em 
+        目
+        \kern1em 
+        录
+        \kern0.2em
+        };
+        \node at ([yshift=-1.5cm]current page.north) {\rmfamily\CJKfamily{BTS} \fontsize{18pt}{5pt}\selectfont \color{white}
+        \kern0.2em 
+        目
+        \kern1em 
+        录
+        \kern0.2em
+        };
+
+        \node[anchor=north east, inner sep=0] at 
+        ($(current page.north east)+(-0.5cm,-0.3cm)$) 
+        {\includegraphics[height=1.2cm]{images/logo_color.png}};
+
+        \node at ([xshift=1pt,yshift=1cm]current page.south) {\rmfamily\CJKfamily{BTS} \fontsize{9pt}{0pt}\selectfont \color{black!80}
+        标题：请输入文本
+        };
+        \node at ([xshift=1pt,yshift=0.6cm]current page.south) {\rmfamily\CJKfamily{BTS} \fontsize{8pt}{0pt}\selectfont \color{black!80}
+        Subtitle: Please enter the text.
+        };
+
+
+        \end{tikzpicture}
+
+    \vspace{0.7cm}
+    \centering
+    {\CJKfamily{XBS} \color{black} 
+    \setbeamercolor{structure}{fg=black}
+    \fontsize{12pt}{10pt}\selectfont
+    \setbeamertemplate{section in toc}[sections numbered]
+    \setbeamertemplate{section in toc}{
+    {\rmfamily\inserttocsectionnumber.}~\inserttocsection\par\vspace{-0.6em}}
+    \tableofcontents[hideallsubsections]}
+    
+
+\end{frame}
+
+
+
+% 正文
+
+% 第一节
+\section{请输入文本（背景与意义）}
+
+    \begin{frame}{请输入文本（背景与意义）}
+
+        %页面底色
+        \begin{tikzpicture}[remember picture,overlay]
+            
+            \pgfmathsetlengthmacro{\rectheight}{\paperheight * 7 / 10}
+                    
+                    \fill[zjured] 
+                        (current page.north west) -- 
+                        (current page.north east) --
+                        ($(current page.north east)-(0,\rectheight)$) --
+                        ($(current page.north west)-(0,\rectheight)$) -- cycle;
+                                        
+                    \node[anchor=north east, inner sep=0] at 
+                        ($(current page.north east)+(-0.5cm,-0.3cm)$) 
+                        {\includegraphics[height=1.2cm]{images/logo.png}};
+
+                    \begin{scope}[shift={($(current page.south west)+(0.5cm,0.5cm)$)}]
+                        \path[rounded corners=0pt, left color=zjublue, right color=zjublue]
+                            (0.7cm,0) rectangle (2cm,0.5cm);
+                        \path[rounded corners=0pt, left color=zjublue, right color=zjured, shading angle=-135]
+                            (0,0) rectangle (0.5cm,0.5cm);            
+                    \end{scope}
+
+                    \begin{scope}[shift={($(current page.south east)+(-0.5cm,0.5cm)$)}, xscale=-1]
+                        \path[rounded corners=0pt, left color=zjublue, right color=zjublue]
+                            (0.7cm,0) rectangle (2cm,0.5cm);
+                        \path[rounded corners=0pt, left color=zjublue, right color=zjured, shading angle=135]
+                            (0,0) rectangle (0.5cm,0.5cm);            
+                    \end{scope}
+
+
+
+        \end{tikzpicture}
+
+        %页面文本
+        \begin{tikzpicture}[remember picture, overlay]
+        
+            % 项目名称
+            \node (activity_shadow) at ([xshift=1pt,yshift=-1pt,yshift=2.3cm]current page.center) {\centering\rmfamily\CJKfamily{simsun} \color{black!90}
+            项目名称：请输入文本
+            };
+            \node (activity) at ([yshift=2.3cm]current page.center) {\centering\rmfamily\CJKfamily{simsun} \color{white} 
+            项目名称：请输入文本
+            };
+            \draw[white, thin] (activity.west) -- (current page.west |- activity.west);
+            \draw[white, thin] (activity.east) -- (current page.east |- activity.east);
+
+            % 标题
+            \node at ([xshift=2pt,yshift=-2pt,yshift=0.6cm]current page.center) {\centering\rmfamily\CJKfamily{BTS} \color{black!90} \fontsize{30pt}{5pt}\selectfont
+            一、请输入文本（背景与意义）
+            };
+            \node at ([yshift=0.6cm]current page.center) {\centering\rmfamily\CJKfamily{BTS} \color{white} \fontsize{30pt}{5pt}\selectfont
+            一、请输入文本（背景与意义）
+            };
+            \node at ([yshift=-0.7cm]current page.center) {\centering\rmfamily \color{white} \large 
+            Subtitle: Please enter the text.
+            };
+
+            \node [text width=20cm] at ([yshift=-3cm]current page.center) {\centering\rmfamily\CJKfamily{kai} \fontsize{10pt}{15pt}\selectfont \setlength{\linespread{0.9}}
+            小节内容1：请输入文本\\
+            小节内容2：请输入\\
+            小节内容3：文本Please\\
+            };
+            
+        \end{tikzpicture}
+
+    \end{frame}
+
+    % 页面一
+    \begin{frame}
+        
+        \begin{tikzpicture}[remember picture, overlay]
+
+            \node[anchor=north west, inner sep=0pt] (boxshadow) at ([xshift=0.5cm,yshift=-0.5cm]current page.north west) {
+                
+                \begin{tikzpicture}                
+                \node[fill=zjublue, text width=3cm, minimum height=0.8cm, 
+                align=center,
+                font=\rmfamily\CJKfamily{BTS}\fontsize{14pt}{14pt}\selectfont] 
+                at (0,0) {
+                    \begin{tikzpicture}[baseline=(textnode.base)]
+                    \node[text=black!90, opacity=0.5, shift={(0.8pt,-0.5pt)}] (shadow) at (0,0) {\addfontfeature{LetterSpace=200}
+                    研究意义};
+                    \node[text=white] (textnode) at (0,0) {\addfontfeature{LetterSpace=200}
+                    研究意义};
+                    \end{tikzpicture}
+                };
+                \end{tikzpicture}
+
+            };
+
+            \draw[fill=zjublue, draw=none]
+                ([xshift=0.1cm]boxshadow.north east) rectangle
+                ([xshift=\dimexpr\paperwidth-0.5cm\relax,yshift=-0.8cm]current page.north west);
+
+            \draw[fill=zjured, draw=none]
+                ([xshift=0.1cm]boxshadow.south east) rectangle
+                ([xshift=\dimexpr\paperwidth-0.5cm\relax,yshift=-0.88cm]current page.north west);
+
+            \node[anchor=west, align=left, text=white, font=\rmfamily\CJKfamily{XBS}\fontsize{7pt}{16pt}\selectfont]
+            at ([xshift=0.1cm,yshift=-0.6cm]boxshadow.north east)
+            {\spaceskip=0.5em plus 0.2em minus 0.1em 研究目的与现实意义};
+
+            \node[anchor=south east, inner sep=0] at ([xshift=-0.2cm,yshift=0.3cm]current page.south east) 
+                {\includegraphics[height=1.3cm]{images/logo_square.png}};
+
+        \end{tikzpicture}
+            
+        \begin{tikzpicture}[remember picture, overlay]
+            
+            \node[anchor=north west, text width=15cm, align=left, font=\rmfamily\CJKfamily{XBS}\fontsize{10pt}{10pt}\selectfont] at ([xshift=0.2cm,yshift=-1.2cm]current page.north west) 
+            {
+                \setbeamertemplate{itemize item}{\color{black}$\bullet$}
+                \setbeamertemplate{itemize subitem}{\color{black}$\circ$}
+
+                \begin{itemize}
+                
+                    \item \textbf{标题一}
+                    \begin{itemize}
+                        \item {\rmfamily\CJKfamily{simsun}\fontsize{8pt}{8pt} 这是标题一的正文，采用宋体书写，内容可以根据实际需要进行扩展和修改。} \\                    
+                        \item {\rmfamily\CJKfamily{kai}\fontsize{8pt}{8pt} 这里是标题一的补充说明，采用楷体书写，进一步阐述相关内容。} \\
+                        [0.8em]
+                    \end{itemize}
+                    
+                    \item \textbf{标题二} \\[0.3em]
+                    {\rmfamily\CJKfamily{simsun}\fontsize{8pt}{8pt} 这是标题二的正文，采用宋体书写，内容可以根据实际需要进行扩展和修改。内容可以根据实际需要进行扩展和修改。内容可以根据实际需要进行扩展和修改。内容可以根据实际需要进行扩展和修改。} \\                    
+                    {\rmfamily\CJKfamily{kai}\fontsize{8pt}{8pt} 这里是标题二的补充说明，采用楷体书写，进一步阐述相关内容。} \\
+                    [0.8em]
+
+                    \item \textbf{标题三} \\[0.3em]
+                    {\rmfamily\CJKfamily{simsun}\fontsize{8pt}{8pt} 这是标题三的正文，采用宋体书写，内容可以根据实际需要进行扩展和修改。} \\                    
+                    {\rmfamily\CJKfamily{kai}\fontsize{8pt}{8pt} 这里是标题三的补充说明，采用楷体书写，进一步阐述相关内容。} \\
+                    [0.8em]
+
+                    \item \textbf{标题四} \\[0.3em]
+                    {\rmfamily\CJKfamily{simsun}\fontsize{8pt}{8pt} 这是标题四的正文，采用宋体书写，内容可以根据实际需要进行扩展和修改。} \\                    
+                    {\rmfamily\CJKfamily{kai}\fontsize{8pt}{8pt} 这里是标题四的补充说明，采用楷体书写，进一步阐述相关内容。} \\
+                    [0.8em]
+
+                    \item \textbf{标题五} \\[0.3em]
+                    {\rmfamily\CJKfamily{simsun}\fontsize{8pt}{8pt} 这是标题五的正文，采用宋体书写，内容可以根据实际需要进行扩展和修改。} \\                    
+                    [0.8em]
+                
+                \end{itemize}
+
+            };
+
+        \end{tikzpicture}
+
+    \end{frame}
+
+
+% 第二节
+\section{请输入文本（内容与思路）}
+
+    \begin{frame}{请输入文本（内容与思路）}
+
+        %页面底色
+        \begin{tikzpicture}[remember picture,overlay]
+            
+            \pgfmathsetlengthmacro{\rectheight}{\paperheight * 7 / 10}
+                    
+                    \fill[zjured] 
+                        (current page.north west) -- 
+                        (current page.north east) --
+                        ($(current page.north east)-(0,\rectheight)$) --
+                        ($(current page.north west)-(0,\rectheight)$) -- cycle;
+                                        
+                    \node[anchor=north east, inner sep=0] at 
+                        ($(current page.north east)+(-0.5cm,-0.3cm)$) 
+                        {\includegraphics[height=1.2cm]{images/logo.png}};
+
+                    \begin{scope}[shift={($(current page.south west)+(0.5cm,0.5cm)$)}]
+                        \path[rounded corners=0pt, left color=zjublue, right color=zjublue]
+                            (0.7cm,0) rectangle (2cm,0.5cm);
+                        \path[rounded corners=0pt, left color=zjublue, right color=zjured, shading angle=-135]
+                            (0,0) rectangle (0.5cm,0.5cm);            
+                    \end{scope}
+
+                    \begin{scope}[shift={($(current page.south east)+(-0.5cm,0.5cm)$)}, xscale=-1]
+                        \path[rounded corners=0pt, left color=zjublue, right color=zjublue]
+                            (0.7cm,0) rectangle (2cm,0.5cm);
+                        \path[rounded corners=0pt, left color=zjublue, right color=zjured, shading angle=135]
+                            (0,0) rectangle (0.5cm,0.5cm);            
+                    \end{scope}
+
+
+
+        \end{tikzpicture}
+
+        %页面文本
+        \begin{tikzpicture}[remember picture, overlay]
+        
+            % 项目名称
+            \node (activity_shadow) at ([xshift=1pt,yshift=-1pt,yshift=2.3cm]current page.center) {\centering\rmfamily\CJKfamily{simsun} \color{black!90}
+            项目名称：请输入文本
+            };
+            \node (activity) at ([yshift=2.3cm]current page.center) {\centering\rmfamily\CJKfamily{simsun} \color{white} 
+            项目名称：请输入文本
+            };
+            \draw[white, thin] (activity.west) -- (current page.west |- activity.west);
+            \draw[white, thin] (activity.east) -- (current page.east |- activity.east);
+
+            % 标题
+            \node at ([xshift=2pt,yshift=-2pt,yshift=0.6cm]current page.center) {\centering\rmfamily\CJKfamily{BTS} \color{black!90} \fontsize{30pt}{5pt}\selectfont
+            二、请输入文本（内容与思路）
+            };
+            \node at ([yshift=0.6cm]current page.center) {\centering\rmfamily\CJKfamily{BTS} \color{white} \fontsize{30pt}{5pt}\selectfont
+            二、请输入文本（内容与思路）
+            };
+            \node at ([yshift=-0.7cm]current page.center) {\centering\rmfamily \color{white} \large 
+            Subtitle: Please enter the text.
+            };
+
+            \node [text width=20cm] at ([yshift=-3cm]current page.center) {\centering\rmfamily\CJKfamily{kai} \fontsize{10pt}{15pt}\selectfont \setlength{\linespread{0.9}}
+            小节内容1：请输入文本\\
+            小节内容2：请输入\\
+            小节内容3：文本Please\\
+            };
+            
+        \end{tikzpicture}
+
+    \end{frame}
+
+    % 页面二
+    \begin{frame}
+        
+        \begin{tikzpicture}[remember picture, overlay]
+
+            \node[anchor=north west, inner sep=0pt] (boxshadow) at ([xshift=0.5cm,yshift=-0.5cm]current page.north west) {
+                
+                \begin{tikzpicture}                
+                \node[fill=zjublue, text width=3cm, minimum height=0.8cm, 
+                align=center,
+                font=\rmfamily\CJKfamily{BTS}\fontsize{14pt}{14pt}\selectfont] 
+                at (0,0) {
+                    \begin{tikzpicture}[baseline=(textnode.base)]
+                    \node[text=black!90, opacity=0.5, shift={(0.8pt,-0.5pt)}] (shadow) at (0,0) {\addfontfeature{LetterSpace=200}
+                    研究意义};
+                    \node[text=white] (textnode) at (0,0) {\addfontfeature{LetterSpace=200}
+                    研究意义};
+                    \end{tikzpicture}
+                };
+                \end{tikzpicture}
+
+            };
+
+            \draw[fill=zjublue, draw=none]
+                ([xshift=0.1cm]boxshadow.north east) rectangle
+                ([xshift=\dimexpr\paperwidth-0.5cm\relax,yshift=-0.8cm]current page.north west);
+
+            \draw[fill=zjured, draw=none]
+                ([xshift=0.1cm]boxshadow.south east) rectangle
+                ([xshift=\dimexpr\paperwidth-0.5cm\relax,yshift=-0.88cm]current page.north west);
+
+            \node[anchor=west, align=left, text=white, font=\rmfamily\CJKfamily{XBS}\fontsize{7pt}{16pt}\selectfont]
+            at ([xshift=0.1cm,yshift=-0.6cm]boxshadow.north east)
+            {\spaceskip=0.5em plus 0.2em minus 0.1em 研究目的与现实意义};
+
+            \path[fill=none, left color=zjublue, right color=zjured, shading angle=45, opacity=1, draw=none]
+                ([xshift=0cm,yshift=1.2cm]current page.south west) rectangle ([xshift=0cm,yshift=1.22cm]current page.south east);
+
+            \node[anchor=south east, inner sep=0] at ([xshift=-0.2cm,yshift=0.3cm]current page.south east) 
+                {\includegraphics[height=1.3cm]{images/logo_square.png}};
+
+        \end{tikzpicture}
+            
+        \begin{tikzpicture}[remember picture, overlay]
+            
+            \node[anchor=north west, text width=10.2cm, align=justify, font=\rmfamily\CJKfamily{XBS}\fontsize{10pt}{10pt}\selectfont] at ([xshift=0.2cm,yshift=-1.2cm]current page.north west) 
+            {
+                \setbeamertemplate{itemize item}{\color{black}$\bullet$}
+                \setbeamertemplate{itemize subitem}{\color{black}$\circ$}
+
+                \begin{itemize}
+                
+                    \item \textbf{标题一}
+                    \begin{itemize}
+                        \item {\rmfamily\CJKfamily{simsun}\fontsize{8pt}{8pt} 这是标题一的正文，采用宋体书写。} \\
+                        \item {\rmfamily\CJKfamily{kai}\fontsize{8pt}{8pt} 这里是标题一的补充说明，采用楷体书写，进一步阐述相关内容。} \\
+                        [0.8em]
+                    \end{itemize}
+                    
+                    \item \textbf{标题二} \\[0.3em]
+                    {\rmfamily\CJKfamily{simsun}\fontsize{8pt}{8pt} 这是标题二的正文，采用宋体书写，内容可以根据实际需要进行扩展和修改。内容可以根据实际需要进行扩展和修改。内容可以根据实际需要进行扩展和修改。内容可以根据实际需要进行扩展和修改。} \\                    
+                    {\rmfamily\CJKfamily{kai}\fontsize{8pt}{8pt} 这里是标题二的补充说明，采用楷体书写，进一步阐述相关内容。} \\
+                    [0.8em]
+
+                    \item \textbf{标题三} \\[0.3em]
+                    {\rmfamily\CJKfamily{simsun}\fontsize{8pt}{8pt} 这是标题三的正文，采用宋体书写，内容可以根据实际需要进行扩展和修改。} \\
+                    {\rmfamily\CJKfamily{kai}\fontsize{8pt}{8pt} 这里是标题三的补充说明，采用楷体书写，进一步阐述相关内容。} \\
+                    [0.8em]
+
+                    \item \textbf{标题四} \\[0.3em]
+                    {\rmfamily\CJKfamily{simsun}\fontsize{8pt}{8pt} 这是标题四的正文，采用宋体书写，内容可以根据实际需要进行扩展和修改。} \\
+                    [0.8em]
+
+                            
+                \end{itemize}
+
+            };
+
+            \node[anchor=north east, text width=4cm, align=justify, font=\rmfamily\CJKfamily{XBS}\fontsize{10pt}{5pt}\selectfont] 
+                at ([xshift=-0.5cm,yshift=-1.8cm]current page.north east) 
+            {
+                
+               {\centering
+                    \begin{tikzpicture}
+                        \node[text width=4cm, align=center]{\color{zjured}这是\color{zjublue}右侧文本框标题};
+                    \end{tikzpicture}\\[1em]
+                }
+                
+                {\rmfamily\CJKfamily{simsun}\fontsize{8pt}{8pt} 这是右侧文本框的正文，采用宋体书写，内容可以根据实际需要进行扩展和修改。} \\
+                {\rmfamily\CJKfamily{kai}\fontsize{8pt}{8pt} 这里是右侧文本框的补充说明，采用楷体书写，进一步阐述相关内容。} \\
+        
+            };
+
+            \node[anchor=north east, text width=4.3cm, align=justify, font=\rmfamily\CJKfamily{XBS}\fontsize{10pt}{5pt}\selectfont] 
+                at ([xshift=-0.5cm,yshift=-4.5cm]current page.north east) 
+            {
+                            
+                \setbeamertemplate{itemize item}{\color{black}$\circ$}
+                \begin{itemize}
+                    \item {\rmfamily\CJKfamily{simsun}\fontsize{8pt}{8pt} 这是右侧文本框的正文，采用宋体书写，内容可以根据实际需要进行扩展和修改。} \\
+                    \item {\rmfamily\CJKfamily{kai}\fontsize{8pt}{8pt} 这里是右侧文本框的补充说明，采用楷体书写，进一步阐述相关内容。} \\
+                \end{itemize}
+            
+            };
+
+
+            \node[anchor=north west, text width=10.2cm, align=justify, font=\rmfamily\CJKfamily{kai}\fontsize{6pt}{6pt}\selectfont, fill=none, draw=none] 
+                at ([xshift=0.2cm,yshift=1.2cm]current page.south west) 
+            {
+                这里是放置文献或脚注的地方，可根据需要填写。\\
+                This is an additional text box for literature or footnotes aligned with the one above. \\
+                这里是放置文献或脚注的地方，可根据需要填写。\\
+                This is an additional text box for literature or footnotes aligned with the one above.
+            };
+            
+
+        \end{tikzpicture}
+
+    \end{frame}
+
+
+% 第三节
+\section{请输入文本（研究设计）}
+
+    \begin{frame}{请输入文本（研究设计）}
+
+        %页面底色
+        \begin{tikzpicture}[remember picture,overlay]
+            
+            \pgfmathsetlengthmacro{\rectheight}{\paperheight * 7 / 10}
+                    
+                    \fill[zjured] 
+                        (current page.north west) -- 
+                        (current page.north east) --
+                        ($(current page.north east)-(0,\rectheight)$) --
+                        ($(current page.north west)-(0,\rectheight)$) -- cycle;
+                                        
+                    \node[anchor=north east, inner sep=0] at 
+                        ($(current page.north east)+(-0.5cm,-0.3cm)$) 
+                        {\includegraphics[height=1.2cm]{images/logo.png}};
+
+                    \begin{scope}[shift={($(current page.south west)+(0.5cm,0.5cm)$)}]
+                        \path[rounded corners=0pt, left color=zjublue, right color=zjublue]
+                            (0.7cm,0) rectangle (2cm,0.5cm);
+                        \path[rounded corners=0pt, left color=zjublue, right color=zjured, shading angle=-135]
+                            (0,0) rectangle (0.5cm,0.5cm);            
+                    \end{scope}
+
+                    \begin{scope}[shift={($(current page.south east)+(-0.5cm,0.5cm)$)}, xscale=-1]
+                        \path[rounded corners=0pt, left color=zjublue, right color=zjublue]
+                            (0.7cm,0) rectangle (2cm,0.5cm);
+                        \path[rounded corners=0pt, left color=zjublue, right color=zjured, shading angle=135]
+                            (0,0) rectangle (0.5cm,0.5cm);            
+                    \end{scope}
+
+
+
+        \end{tikzpicture}
+
+        %页面文本
+        \begin{tikzpicture}[remember picture, overlay]
+        
+            % 项目名称
+            \node (activity_shadow) at ([xshift=1pt,yshift=-1pt,yshift=2.3cm]current page.center) {\centering\rmfamily\CJKfamily{simsun} \color{black!90}
+            项目名称：请输入文本
+            };
+            \node (activity) at ([yshift=2.3cm]current page.center) {\centering\rmfamily\CJKfamily{simsun} \color{white} 
+            项目名称：请输入文本
+            };
+            \draw[white, thin] (activity.west) -- (current page.west |- activity.west);
+            \draw[white, thin] (activity.east) -- (current page.east |- activity.east);
+
+            % 标题
+            \node at ([xshift=2pt,yshift=-2pt,yshift=0.6cm]current page.center) {\centering\rmfamily\CJKfamily{BTS} \color{black!90} \fontsize{30pt}{5pt}\selectfont
+            三、请输入文本（研究设计）
+            };
+            \node at ([yshift=0.6cm]current page.center) {\centering\rmfamily\CJKfamily{BTS} \color{white} \fontsize{30pt}{5pt}\selectfont
+            三、请输入文本（研究设计）
+            };
+            \node at ([yshift=-0.7cm]current page.center) {\centering\rmfamily \color{white} \large 
+            Subtitle: Please enter the text.
+            };
+
+            \node [text width=20cm] at ([yshift=-3cm]current page.center) {\centering\rmfamily\CJKfamily{kai} \fontsize{10pt}{15pt}\selectfont \setlength{\linespread{0.9}}
+            小节内容1：请输入文本\\
+            小节内容2：请输入\\
+            小节内容3：文本Please\\
+            };
+            
+        \end{tikzpicture}
+
+    \end{frame}
+
+    % 页面三
+    \begin{frame}
+        
+        \begin{tikzpicture}[remember picture, overlay]
+
+            \node[anchor=north west, inner sep=0pt] (boxshadow) at ([xshift=0.5cm,yshift=-0.5cm]current page.north west) {
+                
+                \begin{tikzpicture}                
+                \node[fill=zjublue, text width=3cm, minimum height=0.8cm, 
+                align=center,
+                font=\rmfamily\CJKfamily{BTS}\fontsize{14pt}{14pt}\selectfont] 
+                at (0,0) {
+                    \begin{tikzpicture}[baseline=(textnode.base)]
+                    \node[text=black!90, opacity=0.5, shift={(0.8pt,-0.5pt)}] (shadow) at (0,0) {\addfontfeature{LetterSpace=200}
+                    研究意义};
+                    \node[text=white] (textnode) at (0,0) {\addfontfeature{LetterSpace=200}
+                    研究意义};
+                    \end{tikzpicture}
+                };
+                \end{tikzpicture}
+
+            };
+
+            \draw[fill=zjublue, draw=none]
+                ([xshift=0.1cm]boxshadow.north east) rectangle
+                ([xshift=\dimexpr\paperwidth-0.5cm\relax,yshift=-0.8cm]current page.north west);
+
+            \draw[fill=zjured, draw=none]
+                ([xshift=0.1cm]boxshadow.south east) rectangle
+                ([xshift=\dimexpr\paperwidth-0.5cm\relax,yshift=-0.88cm]current page.north west);
+
+            \node[anchor=west, align=left, text=white, font=\rmfamily\CJKfamily{XBS}\fontsize{7pt}{16pt}\selectfont]
+            at ([xshift=0.1cm,yshift=-0.6cm]boxshadow.north east)
+            {\spaceskip=0.5em plus 0.2em minus 0.1em 研究目的与现实意义};
+            
+            \begin{scope}[shift={($(current page.south)+(0cm,0.65cm)$)}]
+                \path[rounded corners=0pt, left color=zjublue, right color=zjured, shading angle=90]
+                    (-7.5cm,0) rectangle (7cm,0.5cm);            
+            \end{scope}
+            
+            \node[anchor=south east, inner sep=0] at ([xshift=-0.2cm,yshift=0.3cm]current page.south east) 
+                {\includegraphics[height=1.3cm]{images/logo_square.png}};
+
+        
+        \end{tikzpicture}
+            
+        \begin{tikzpicture}[remember picture, overlay]
+            
+            \node[anchor=north west, text width=15cm, align=justify, font=\rmfamily\CJKfamily{XBS}\fontsize{10pt}{10pt}\selectfont] at ([xshift=0.2cm,yshift=-1.2cm]current page.north west) 
+            {
+                \setbeamertemplate{itemize item}{\color{black}$\bullet$}
+                \setbeamertemplate{itemize subitem}{\color{black}$\circ$}
+
+                \begin{itemize}
+                        
+                    \item \textbf{标题一} \\[0.3em]
+                    {\rmfamily\CJKfamily{simsun}\fontsize{8pt}{8pt} 这是标题一的正文，采用宋体书写，内容可以根据实际需要进行扩展和修改。内容可以根据实际需要进行扩展和修改。内容可以根据实际需要进行扩展和修改。内容可以根据实际需要进行扩展和修改。} \\                    
+                    {\rmfamily\CJKfamily{kai}\fontsize{8pt}{8pt} 这里是标题一的补充说明，采用楷体书写，进一步阐述相关内容。} \\
+                    [0.8em]
+                                            
+                \end{itemize}
+
+                \begin{equation}
+                    \mathnormal{F} = \mathnormal{G} \frac{\mathnormal{m}_{\mathnormal{1}} \mathnormal{m}_{\mathnormal{2}}}{\mathnormal{r}^{\mathnormal{2}}}
+                \end{equation}
+                            
+                \hspace*{2.3em}\begin{minipage}{0.92\textwidth}
+                    {\rmfamily\CJKfamily{simsun}\fontsize{8pt}{8pt} 该公式为万有引力定律，其中 $\mathnormal{F}$ 表示引力，$\mathnormal{m}_{\mathnormal{1}}$ 和 $\mathnormal{m}_{\mathnormal{2}}$ 分别为两个物体的质量，$\mathnormal{r}$ 为两物体间距离，$\mathnormal{G}$ 为引力常数。该公式描述了两个质量之间的引力与质量乘积成正比，与距离的平方成反比。}
+                \end{minipage} \\
+                
+                \begin{equation}
+                    \mathnormal{F} = \mathnormal{G} \frac{\mathnormal{m}_{\mathnormal{1}} \mathnormal{m}_{\mathnormal{2}}}{\mathnormal{r}^{\mathnormal{2}}}
+                \end{equation}
+                
+                \hspace*{2.3em}\begin{minipage}{0.92\textwidth}
+                    {\rmfamily\CJKfamily{simsun}\fontsize{8pt}{8pt} 该公式为万有引力定律，其中 $\mathnormal{F}$ 表示引力，$\mathnormal{m}_{\mathnormal{1}}$ 和 $\mathnormal{m}_{\mathnormal{2}}$ 分别为两个物体的质量，$\mathnormal{r}$ 为两物体间距离，$\mathnormal{G}$ 为引力常数。该公式描述了两个质量之间的引力与质量乘积成正比，与距离的平方成反比。} \\
+                \end{minipage} \\
+                
+
+            };
+
+            \node[align=center, font=\rmfamily\CJKfamily{XBS}\fontsize{10pt}{10pt}\selectfont, text=white] 
+                at ([yshift=0.9cm]current page.south) {这里是渐变色矩形上的文本,可以根据需要进行修改。};
+                
+        \end{tikzpicture}
+
+    \end{frame}
+
+
+% 第四节
+\section{请输入文本（结果与分析）}
+
+    \begin{frame}{请输入文本（结果与分析）}
+
+        %页面底色
+        \begin{tikzpicture}[remember picture,overlay]
+            
+            \pgfmathsetlengthmacro{\rectheight}{\paperheight * 7 / 10}
+                    
+                    \fill[zjured] 
+                        (current page.north west) -- 
+                        (current page.north east) --
+                        ($(current page.north east)-(0,\rectheight)$) --
+                        ($(current page.north west)-(0,\rectheight)$) -- cycle;
+                                        
+                    \node[anchor=north east, inner sep=0] at 
+                        ($(current page.north east)+(-0.5cm,-0.3cm)$) 
+                        {\includegraphics[height=1.2cm]{images/logo.png}};
+
+                    \begin{scope}[shift={($(current page.south west)+(0.5cm,0.5cm)$)}]
+                        \path[rounded corners=0pt, left color=zjublue, right color=zjublue]
+                            (0.7cm,0) rectangle (2cm,0.5cm);
+                        \path[rounded corners=0pt, left color=zjublue, right color=zjured, shading angle=-135]
+                            (0,0) rectangle (0.5cm,0.5cm);            
+                    \end{scope}
+
+                    \begin{scope}[shift={($(current page.south east)+(-0.5cm,0.5cm)$)}, xscale=-1]
+                        \path[rounded corners=0pt, left color=zjublue, right color=zjublue]
+                            (0.7cm,0) rectangle (2cm,0.5cm);
+                        \path[rounded corners=0pt, left color=zjublue, right color=zjured, shading angle=135]
+                            (0,0) rectangle (0.5cm,0.5cm);            
+                    \end{scope}
+
+
+
+        \end{tikzpicture}
+
+        %页面文本
+        \begin{tikzpicture}[remember picture, overlay]
+        
+            % 项目名称
+            \node (activity_shadow) at ([xshift=1pt,yshift=-1pt,yshift=2.3cm]current page.center) {\centering\rmfamily\CJKfamily{simsun} \color{black!90}
+            项目名称：请输入文本
+            };
+            \node (activity) at ([yshift=2.3cm]current page.center) {\centering\rmfamily\CJKfamily{simsun} \color{white} 
+            项目名称：请输入文本
+            };
+            \draw[white, thin] (activity.west) -- (current page.west |- activity.west);
+            \draw[white, thin] (activity.east) -- (current page.east |- activity.east);
+
+            % 标题
+            \node at ([xshift=2pt,yshift=-2pt,yshift=0.6cm]current page.center) {\centering\rmfamily\CJKfamily{BTS} \color{black!90} \fontsize{30pt}{5pt}\selectfont
+            四、请输入文本（结果与分析）
+            };
+            \node at ([yshift=0.6cm]current page.center) {\centering\rmfamily\CJKfamily{BTS} \color{white} \fontsize{30pt}{5pt}\selectfont
+            四、请输入文本（结果与分析）
+            };
+            \node at ([yshift=-0.7cm]current page.center) {\centering\rmfamily \color{white} \large 
+            Subtitle: Please enter the text.
+            };
+
+            \node [text width=20cm] at ([yshift=-3cm]current page.center) {\centering\rmfamily\CJKfamily{kai} \fontsize{10pt}{15pt}\selectfont \setlength{\linespread{0.9}}
+            小节内容1：请输入文本\\
+            小节内容2：请输入\\
+            小节内容3：文本Please\\
+            };
+            
+        \end{tikzpicture}
+
+    \end{frame}
+
+    % 页面四
+    \begin{frame}
+    
+        \begin{tikzpicture}[remember picture, overlay]
+
+            \node[anchor=north west, inner sep=0pt] (boxshadow) at ([xshift=0.5cm,yshift=-0.5cm]current page.north west) {
+                
+                \begin{tikzpicture}                
+                \node[fill=zjublue, text width=3cm, minimum height=0.8cm, 
+                align=center,
+                font=\rmfamily\CJKfamily{BTS}\fontsize{14pt}{14pt}\selectfont] 
+                at (0,0) {
+                    \begin{tikzpicture}[baseline=(textnode.base)]
+                    \node[text=black!90, opacity=0.5, shift={(0.8pt,-0.5pt)}] (shadow) at (0,0) {\addfontfeature{LetterSpace=200}
+                    研究意义};
+                    \node[text=white] (textnode) at (0,0) {\addfontfeature{LetterSpace=200}
+                    研究意义};
+                    \end{tikzpicture}
+                };
+                \end{tikzpicture}
+
+            };
+
+            \draw[fill=zjublue, draw=none]
+                ([xshift=0.1cm]boxshadow.north east) rectangle
+                ([xshift=\dimexpr\paperwidth-0.5cm\relax,yshift=-0.8cm]current page.north west);
+
+            \draw[fill=zjured, draw=none]
+                ([xshift=0.1cm]boxshadow.south east) rectangle
+                ([xshift=\dimexpr\paperwidth-0.5cm\relax,yshift=-0.88cm]current page.north west);
+
+            \node[anchor=west, align=left, text=white, font=\rmfamily\CJKfamily{XBS}\fontsize{7pt}{16pt}\selectfont]
+            at ([xshift=0.1cm,yshift=-0.6cm]boxshadow.north east)
+            {\spaceskip=0.5em plus 0.2em minus 0.1em 研究目的与现实意义};
+                
+            \node[anchor=south east, inner sep=0] at ([xshift=-0.2cm,yshift=0.3cm]current page.south east) 
+                {\includegraphics[height=1.3cm]{images/logo_square.png}};
+
+        
+        \end{tikzpicture}
+
+        \begin{tikzpicture}[remember picture, overlay]
+                
+            \node[anchor=north east, text width=4cm, align=justify, font=\rmfamily\CJKfamily{XBS}\fontsize{10pt}{5pt}\selectfont] 
+                        at ([xshift=-0.5cm,yshift=-1.8cm]current page.north east) 
+                    {
+                        
+                        {\centering \textcolor{zjublue!50!zjured}{这里是右侧文本框标题}\\[1em]}
+                        
+                        {\rmfamily\CJKfamily{simsun}\fontsize{8pt}{8pt} 这是右侧文本框的正文，采用宋体书写，内容可以根据实际需要进行扩展和修改。} \\
+                        {\rmfamily\CJKfamily{kai}\fontsize{8pt}{8pt} 这里是右侧文本框的补充说明，采用楷体书写，进一步阐述相关内容。} \\
+                
+                    };
+
+                \node[anchor=north east, text width=4.3cm, align=justify, font=\rmfamily\CJKfamily{XBS}\fontsize{10pt}{5pt}\selectfont] 
+                    at ([xshift=-0.5cm,yshift=-4.5cm]current page.north east) 
+                {
+                                
+                    \setbeamertemplate{itemize item}{\color{black}$\circ$}
+                    \begin{itemize}
+                        \item {\rmfamily\CJKfamily{simsun}\fontsize{8pt}{8pt} 这是右侧文本框的正文，采用宋体书写，内容可以根据实际需要进行扩展和修改。} \\
+                        \item {\rmfamily\CJKfamily{kai}\fontsize{8pt}{8pt} 这里是右侧文本框的补充说明，采用楷体书写，进一步阐述相关内容。} \\
+                    \end{itemize}
+                    
+                };
+                    
+            % 表格
+            \node[anchor=north west, text width=10.2cm, align=justify] at ([xshift=0.2cm,yshift=-2.2cm]current page.north west) {
+                \begin{table}[h]
+                    \centering
+                    {\rmfamily\CJKfamily{simsun}\fontsize{8pt}{8pt}\selectfont
+                    \begin{tabular}{lccc}
+                        \toprule[1pt]
+                        \multicolumn{1}{l}{\textbf{指标}} & 
+                        \multicolumn{1}{c}{\textbf{均值}} & 
+                        \multicolumn{1}{c}{\textbf{标准差}} & 
+                        \multicolumn{1}{c}{\textbf{样本量}} \\ 
+                        \midrule[0.5pt]
+                        人均GDP（万元）    & 6.82  & 2.43 & 120 \\[0.3em]
+                        固定资产投资（亿元）& 892.5 & 456.2 & 120 \\[0.3em]
+                        居民消费指数       & 103.2 & 1.86 & 120 \\[0.3em]
+                        工业增加值增速（\%）& 7.23  & 2.15 & 120 \\[0.3em]
+                        社会消费品零售总额  & 436.8 & 278.4 & 120 \\
+                        \bottomrule[1pt]
+                    \end{tabular}
+                    }
+                    \vspace{0.5em}
+                    \\
+                    {\rmfamily\CJKfamily{kai}\fontsize{8pt}{8pt}\selectfont \raggedright
+                    注：数据来源于国家统计局，样本区间为2010-2019年。}              
+                \end{table}
+            };
+        
+    
+        \end{tikzpicture}
+
+
+    \end{frame}
+
+% 第五节
+\section{请输入文本（总结与讨论）}
+
+    \begin{frame}{请输入文本（总结与讨论）}
+
+        %页面底色
+        \begin{tikzpicture}[remember picture,overlay]
+            
+            \pgfmathsetlengthmacro{\rectheight}{\paperheight * 7 / 10}
+                    
+                    \fill[zjublue] 
+                        (current page.north west) -- 
+                        (current page.north east) --
+                        ($(current page.north east)-(0,\rectheight)$) --
+                        ($(current page.north west)-(0,\rectheight)$) -- cycle;
+                                        
+                    \node[anchor=north east, inner sep=0] at 
+                        ($(current page.north east)+(-0.5cm,-0.3cm)$) 
+                        {\includegraphics[height=1.2cm]{images/logo.png}};
+
+                    \begin{scope}[shift={($(current page.south west)+(0.5cm,0.5cm)$)}]
+                        \path[rounded corners=0pt, left color=zjured, right color=zjured]
+                            (0.7cm,0) rectangle (2cm,0.5cm);
+                        \path[rounded corners=0pt, left color=zjured, right color=zjublue, shading angle=-135]
+                            (0,0) rectangle (0.5cm,0.5cm);            
+                    \end{scope}
+
+                    \begin{scope}[shift={($(current page.south east)+(-0.5cm,0.5cm)$)}, xscale=-1]
+                        \path[rounded corners=0pt, left color=zjured, right color=zjured]
+                            (0.7cm,0) rectangle (2cm,0.5cm);
+                        \path[rounded corners=0pt, left color=zjured, right color=zjublue, shading angle=135]
+                            (0,0) rectangle (0.5cm,0.5cm);            
+                    \end{scope}
+
+
+
+        \end{tikzpicture}
+
+        %页面文本
+        \begin{tikzpicture}[remember picture, overlay]
+        
+            % 项目名称
+            \node (activity_shadow) at ([xshift=1pt,yshift=-1pt,yshift=2.3cm]current page.center) {\centering\rmfamily\CJKfamily{simsun} \color{black!90}
+            项目名称：请输入文本
+            };
+            \node (activity) at ([yshift=2.3cm]current page.center) {\centering\rmfamily\CJKfamily{simsun} \color{white} 
+            项目名称：请输入文本
+            };
+            \draw[white, thin] (activity.west) -- (current page.west |- activity.west);
+            \draw[white, thin] (activity.east) -- (current page.east |- activity.east);
+
+            % 标题
+            \node at ([xshift=2pt,yshift=-2pt,yshift=0.6cm]current page.center) {\centering\rmfamily\CJKfamily{BTS} \color{black!90} \fontsize{30pt}{5pt}\selectfont
+            五、请输入文本（总结与讨论）
+            };
+            \node at ([yshift=0.6cm]current page.center) {\centering\rmfamily\CJKfamily{BTS} \color{white} \fontsize{30pt}{5pt}\selectfont
+            五、请输入文本（总结与讨论）
+            };
+            \node at ([yshift=-0.7cm]current page.center) {\centering\rmfamily \color{white} \large 
+            Subtitle: Please enter the text.
+            };
+
+            \node [text width=20cm] at ([yshift=-3cm]current page.center) {\centering\rmfamily\CJKfamily{kai} \fontsize{10pt}{15pt}\selectfont \setlength{\linespread{0.9}}
+            小节内容1：请输入文本\\
+            小节内容2：请输入\\
+            小节内容3：文本Please\\
+            };
+            
+        \end{tikzpicture}
+
+    \end{frame}
+
+    % 页面五
+    \begin{frame}
+    
+        \begin{tikzpicture}[remember picture, overlay]
+
+            \node[anchor=north west, inner sep=0pt] (boxshadow) at ([xshift=0.5cm,yshift=-0.5cm]current page.north west) {
+                
+                \begin{tikzpicture}                
+                \node[fill=zjublue, text width=3cm, minimum height=0.8cm, 
+                align=center,
+                font=\rmfamily\CJKfamily{BTS}\fontsize{14pt}{14pt}\selectfont] 
+                at (0,0) {
+                    \begin{tikzpicture}[baseline=(textnode.base)]
+                    \node[text=black!90, opacity=0.5, shift={(0.8pt,-0.5pt)}] (shadow) at (0,0) {\addfontfeature{LetterSpace=200}
+                    研究意义};
+                    \node[text=white] (textnode) at (0,0) {\addfontfeature{LetterSpace=200}
+                    研究意义};
+                    \end{tikzpicture}
+                };
+                \end{tikzpicture}
+
+            };
+
+            \draw[fill=zjublue, draw=none]
+                ([xshift=0.1cm]boxshadow.north east) rectangle
+                ([xshift=\dimexpr\paperwidth-0.5cm\relax,yshift=-0.8cm]current page.north west);
+
+            \draw[fill=zjured, draw=none]
+                ([xshift=0.1cm]boxshadow.south east) rectangle
+                ([xshift=\dimexpr\paperwidth-0.5cm\relax,yshift=-0.88cm]current page.north west);
+
+            \node[anchor=west, align=left, text=white, font=\rmfamily\CJKfamily{XBS}\fontsize{7pt}{16pt}\selectfont]
+            at ([xshift=0.1cm,yshift=-0.6cm]boxshadow.north east)
+            {\spaceskip=0.5em plus 0.2em minus 0.1em 研究目的与现实意义};
+                
+            \node[anchor=south east, inner sep=0] at ([xshift=-0.2cm,yshift=0.3cm]current page.south east) 
+                {\includegraphics[height=1.3cm]{images/logo_square.png}};
+
+        
+        \end{tikzpicture}
+
+        \begin{tikzpicture}[remember picture, overlay]
+            
+            \node[anchor=north west, text width=15cm, align=justify, font=\rmfamily\CJKfamily{XBS}\fontsize{10pt}{10pt}\selectfont] at ([xshift=0.2cm,yshift=-1.2cm]current page.north west) 
+            {
+                
+                \setbeamertemplate{itemize item}{\color{black}$\bullet$}
+                \setbeamertemplate{itemize subitem}{\color{black}$\circ$}
+
+                \begin{itemize}
+                    \item \textbf{标题一} \\[0.3em]
+                    {\rmfamily\CJKfamily{simsun}\fontsize{8pt}{8pt} 这是标题一的正文，采用宋体书写，内容可以根据实际需要进行扩展和修改。内容可以根据实际需要进行扩展和修改。内容可以根据实际需要进行扩展和修改。内容可以根据实际需要进行扩展和修改。} \\                    
+                    {\rmfamily\CJKfamily{kai}\fontsize{8pt}{8pt} 这里是标题一的补充说明，采用楷体书写，进一步阐述相关内容。} \\
+                \end{itemize}
+                \vspace{-2em} % 非必需
+                \begin{center}
+                    \begin{minipage}{0.35\textwidth}
+                        \centering
+                        \includegraphics[height=5cm]{images/logo_square.png}\\[0.5em]
+                        {\vspace{-1.5em}\rmfamily\CJKfamily{kai}\fontsize{8pt}{8pt} 这是左侧图片的说明文字，采用楷体，内容可根据实际需要进行修改。}
+                    \end{minipage}
+                    \hspace{2cm}
+                    \begin{minipage}{0.35\textwidth}
+                        \centering
+                        \includegraphics[height=5cm]{images/logo_square.png}\\[0.5em]
+                        {\vspace{-1.5em}\rmfamily\CJKfamily{kai}\fontsize{8pt}{8pt} 这是右侧图片的说明文字，采用楷体，内容可根据实际需要进行修改。}
+                    \end{minipage}
+                \end{center}
+                            
+            };
+
+
+                
+        \end{tikzpicture}
+
+
+    \end{frame}
+
+% 参考文献
+\begin{frame}[plain]
+
+    % 页面排版
+    \begin{tikzpicture}[remember picture, overlay]
+
+        \begin{scope}[scale=0.8]
+
+            \node[anchor=center, inner sep=0, opacity=0.1] at 
+                (current page.center)
+                {\includegraphics[height=11cm]{images/logo_square.png}};
+
+            % 渐变矩形背景
+            \path[rounded corners=0pt, left color=zjublue, right color=zjured, shading angle=-45, opacity=1]
+                ([xshift=-1.8cm,yshift=-1.8cm]current page.north) rectangle ([xshift=1.8cm,yshift=-0.8cm]current page.north);
+
+            % 参考文献文本
+            \node at ([xshift=1pt,yshift=-1.3cm,yshift=-1pt]current page.north) {\rmfamily\CJKfamily{BTS} \fontsize{14pt}{5pt}\selectfont \color{black!80}
+                \kern0.2em 
+                参\hspace{5pt}考\hspace{5pt}文\hspace{5pt}献
+                \kern0.2em
+                };
+                \node at ([yshift=-1.3cm]current page.north) {\rmfamily\CJKfamily{BTS} \fontsize{14pt}{5pt}\selectfont \color{white}
+                \kern0.2em 
+                参\hspace{5pt}考\hspace{5pt}文\hspace{5pt}献
+                \kern0.2em
+            };
+
+        \end{scope}
+
+    \end{tikzpicture}
+
+    \printbibliography
+
+
+\end{frame}
+
+
+
+% 结束页
+\begin{frame}[plain]
+    
+    % 封面底色形状
+    \begin{tikzpicture}[remember picture,overlay]
+        
+        \pgfmathsetlengthmacro{\rectheight}{\paperheight * 7 / 10}
+        
+        \fill[zjublue] 
+            (current page.north east) -- 
+            (current page.north west) --
+            ($(current page.north west)-(0,\rectheight)$) --
+            ($(current page.north east)-(0,\rectheight)$) -- cycle;
+        
+        \fill[zjured] 
+            (current page.north east) -- 
+            ($(current page.north west)-(0,\rectheight)$) --
+            ($(current page.north east)-(0,\rectheight)$) --
+            (current page.north east) -- cycle;
+
+        \node[anchor=north west, inner sep=0] at 
+            ($(current page.north west)+(0.5cm,-0.3cm)$) 
+            {\includegraphics[height=1.2cm]{images/logo.png}};
+       
+        \begin{scope}[shift={($(current page.south west)+(0.5cm,1.75cm)$)}, scale=0.8, yscale=-1]
+            \path[fill=none, draw=none, name path=leftL]
+            (0,0) -- ++(0,1.5cm) -- ++(1.5cm,0) -- ++(0,-0.5cm) -- ++(-1cm,0) -- ++(0,-1cm) -- cycle;
+            \path[left color=zjublue, right color=zjured, shading angle=-135, opacity=0.9]
+            (0,0) -- ++(0,1.5cm) -- ++(1.5cm,0) -- ++(0,-0.5cm) -- ++(-1cm,0) -- ++(0,-1cm) -- cycle;
+        \end{scope}
+
+        \begin{scope}[shift={($(current page.south east)+(-0.5cm,1.75cm)$)}, scale=0.8]
+            \path[fill=none, draw=none, name path=rightL]
+                (0,0) -- ++(0,-1.5cm) -- ++(-1.5cm,0) -- ++(0,0.5cm) -- ++(1cm,0) -- ++(0,1cm) -- cycle;
+            \path[left color=zjured, right color=zjublue, shading angle=135, opacity=0.9]
+                (0,0) -- ++(0,-1.5cm) -- ++(-1.5cm,0) -- ++(0,0.5cm) -- ++(1cm,0) -- ++(0,1cm) -- cycle;
+        \end{scope}
+
+
+    \end{tikzpicture}
+
+    % 封面文本
+    \begin{tikzpicture}[remember picture, overlay]
+       
+        % 活动名称
+        \node (activity_shadow) at ([xshift=1pt,yshift=-1pt,yshift=2.3cm]current page.center) {\rmfamily\CJKfamily{simsun} \color{black!90}
+        活动名称：请输入文本
+        };
+        \node (activity) at ([yshift=2.3cm]current page.center) {\rmfamily\CJKfamily{simsun} \color{white} 
+        活动名称：请输入文本
+        };
+        \draw[white, thin] (activity.west) -- (current page.west |- activity.west);
+        \draw[white, thin] (activity.east) -- (current page.east |- activity.east);
+
+        % 标题
+        \node at ([xshift=2pt,yshift=-2pt,yshift=0.6cm]current page.center) {\rmfamily\CJKfamily{BTS} \color{black!90} \fontsize{40pt}{5pt}\selectfont
+        汇报结束 \hspace{0.1pt} 敬请指正
+        };
+        \node at ([yshift=0.6cm]current page.center) {\rmfamily\CJKfamily{BTS} \color{white} \fontsize{40pt}{5pt}\selectfont
+        汇报结束 \hspace{0.1pt} 敬请指正
+        };
+        \node at ([yshift=-0.6cm]current page.center) {\rmfamily \color{white} \large 
+        Thank You For Listening.
+        };
+
+        % 指导教师
+        \node at ([yshift=-2.3cm]current page.center) {\rmfamily\CJKfamily{kai} \fontsize{10pt}{5pt}\selectfont
+        指导教师：请输入文本
+        };
+        % 所属单位
+        \node at ([yshift=-2.8cm]current page.center) {\rmfamily\CJKfamily{kai} \fontsize{10pt}{5pt}\selectfont
+        所属单位：请输入文本
+        };
+        % 姓名
+        \node at ([yshift=-3.3cm]current page.center) {\rmfamily\CJKfamily{kai} \fontsize{10pt}{5pt}\selectfont
+        姓名：请输入文本
+        };
+        % 日期
+        \node at ([yshift=-3.8cm]current page.center) {\rmfamily\CJKfamily{kai} \fontsize{10pt}{5pt}\selectfont
+        日期：\today
+        };
+    
+    \end{tikzpicture}
+
+\end{frame}
+
+
+
+\end{document}
